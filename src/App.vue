@@ -1,13 +1,29 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <main>
-    <RouterView />
-  </main>
+  <TopNav/>
+  <NavBar :categories="categories"/>
 </template>
 
-<style scoped>
+<script lang="ts">
+import { defineComponent, onMounted, ref } from 'vue'
+import { getCategories } from './services/shopService'
+import TopNav from './partials/TopNav.vue'
+import NavBar from './partials/NavButtons.vue'
 
-</style>
+export default defineComponent({
+  components: {
+    TopNav,
+    NavBar
+  },
+  setup() {
+    const categories = ref([])
+
+    const fetchCategories = async () => {
+      categories.value = await getCategories()
+    }
+
+    onMounted(fetchCategories)
+
+    return { categories }
+  }
+})
+</script>
