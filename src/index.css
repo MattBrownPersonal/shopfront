@@ -8,3 +8,6 @@ body {
     font-family: nunito;
 }
 
+.nav-button {
+    @apply text-xl uppercase bg-gradient-to-t from-gray-500 to-gray-400 text-white px-10 py-10 rounded
+}

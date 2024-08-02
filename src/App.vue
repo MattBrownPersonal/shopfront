@@ -1,29 +1,37 @@
 <template>
-  <TopNav/>
-  <NavBar :categories="categories"/>
+  <TopNav />
+  <NavButtons :categories="shopCategories" />
+  <Products />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import { getCategories } from './services/shopService'
 import TopNav from './partials/TopNav.vue'
-import NavBar from './partials/NavButtons.vue'
+import NavButtons from './partials/NavButtons.vue'
+import Products from './partials/ShowProducts.vue'
+import { useCategoryStore } from './stores/categories'
+import type { Category } from './interfaces/Category'
 
 export default defineComponent({
   components: {
     TopNav,
-    NavBar
+    NavButtons,
+    Products
   },
   setup() {
-    const categories = ref([])
+    const shopCategories = ref<Category[]>([])
+    const categoryStore = useCategoryStore()
 
-    const fetchCategories = async () => {
-      categories.value = await getCategories()
+    const fetchCategories = () => {
+      shopCategories.value = categoryStore.categories
     }
 
-    onMounted(fetchCategories)
+    onMounted(() => {
+      categoryStore.loadCategories()
+      fetchCategories()
+    })
 
-    return { categories }
+    return { shopCategories }
   }
 })
 </script>

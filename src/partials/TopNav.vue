@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-black pl-10 py-5 flex justify-between">
+    <div class="bg-gradient-to-r from-black to-gray-900 pl-10 py-5 flex justify-between">
       <div class="flex-1">
         <h1 class="text-5xl text-white">ShopFront</h1>
       </div>
